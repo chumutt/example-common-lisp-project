@@ -1,0 +1,29 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+exec ros -Q -- $0 "$@"
+|#
+
+#|
+ This file is a part of example-common-lisp-project
+ (c) 2024 author-name website.arpa (email@email.arpa)
+ Author: author-name <email@email.arpa>
+|#
+
+;; Use `+Q`  if you don't have Quicklisp dependencies to save startup time.
+
+(defun help ()
+  (format T "~&Usage:
+
+  example-common-lisp-project [name]
+"))
+
+;; XXX: this load does not load from everywhere
+;; It doesn't work when run as a script.
+(load (truename "example-common-lisp-project.asd"))
+(ql:quickload "example-common-lisp-project")
+
+(defun main (&rest argv)
+  "Optional name parameter."
+  ;; CLI args parsing is done in %main.
+  (example-common-lisp-project::%main argv))
